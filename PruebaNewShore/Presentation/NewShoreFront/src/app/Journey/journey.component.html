@@ -1,0 +1,71 @@
+
+<mat-card>
+    <h1>Journey</h1>
+    <br>
+    <span>Errores</span>
+    <!-- <pre>{{myForm.controls['Origin'].errors | json}}</pre>
+    <pre>{{myForm.controls['Destination'].errors | json }}</pre> -->
+    <form class="example-form" [formGroup]="myForm" (ngSubmit)="getRoute()">
+        <mat-form-field class="example-full-width">
+        <mat-label>Origin</mat-label>
+        <input matInput placeholder="MZL" formControlName="Origin" class="uppercase">
+        <span *ngIf="myForm.controls['Origin'].getError('required') && myForm.controls['Origin'].touched" class="form-text form-danger">This field is required</span>
+        <span *ngIf="myForm.controls['Origin'].getError('maxlength') && myForm.controls['Origin'].touched" class="form-text form-danger">This field requires maximum 3 letters</span>
+        </mat-form-field>
+    
+        <mat-form-field class="example-full-width">
+        <mat-label>Destination</mat-label>
+        <input matInput placeholder="BCN" formControlName="Destination" class="uppercase">
+        <span *ngIf="myForm.controls['Destination'].getError('required') && myForm.controls['Destination'].touched" class="form-text form-danger">This field is required</span>
+        <span *ngIf="myForm.controls['Destination'].getError('maxlength') && myForm.controls['Destination'].touched" class="form-text form-danger">This field requires maximum 3 letters</span>
+        <span *ngIf="myForm.controls['Destination'].getError('notEqual') && myForm.controls['Destination'].touched" class="form-text form-danger">This destination is equals to origin</span>
+        </mat-form-field>
+        <div *ngIf="myForm.hasError('fieldsMatch')">
+            Los campos no pueden ser iguales.
+        </div>
+        <br>
+        <br>
+        <br>
+        <button mat-raised-button color="primary">Check Flights</button>
+    </form>
+    <br>
+</mat-card>
+
+<div class="card" *ngIf="this.responseData">
+    <!-- <pre>{{this.journey | json}}</pre> -->
+    <br>
+    <br>
+    <mat-list>
+        <mat-list-item>Origin: {{this.journey.origin}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Destination: {{this.journey.destination}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Price: {{currencyResponse.name}} {{this.priceShow}}</mat-list-item>
+    </mat-list>
+    <mat-card *ngFor="let item of this.journey.flights">
+        <mat-card-header>
+          <mat-card-title>Flight </mat-card-title>
+          <mat-card-subtitle>Flight Carrier: {{item.transport.flightCarrier}}</mat-card-subtitle>
+          <mat-card-subtitle>Flight Number: {{item.transport.flightNumber}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item>Origin: {{item.origin}}</mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>Destination: {{item.destination}}</mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>Price: {{item.price}}</mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <h1>you want to change the currency?</h1>
+    <mat-form-field>
+        <mat-select placeholder="Coin"  (selectionChange)="changeClient($event.value)">
+          <mat-option *ngFor="let item of currency" [value]="item.value">
+            {{ item.viewValue }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+

@@ -7,6 +7,7 @@ namespace PruebaNewShore.Controllers
 {
     public class JourneyController : Controller
     {
+        const string url = "https://recruiting-api.newshore.es/api/flights/2";
         private readonly IJourneyService journeyService;
 
         public JourneyController(IJourneyService journeyService)
@@ -20,7 +21,6 @@ namespace PruebaNewShore.Controllers
         {
             try
             {
-                const string url = "https://recruiting-api.newshore.es/api/flights/2";
                 var FlightsDtos = journeyService.GetFlightsApi(url);
                 var Flight = journeyService.MappingFlights(FlightsDtos.Result);
                 return Flight;
@@ -31,25 +31,31 @@ namespace PruebaNewShore.Controllers
             }
         }
 
+        //Problema 3
         [HttpGet("GetRoutes")]
-        public Journey GetRoutes(JourneyDTO journeyDTO)
+        public Journey GetRoutes([FromBody] JourneyDTO journeyDTO)
         {
             try
             {
-                const string url = "https://recruiting-api.newshore.es/api/flights/2";
                 var FlightsDtos = journeyService.GetFlightsApi(url);
                 var Flight = journeyService.MappingFlights(FlightsDtos.Result);
 
-                //var routeFlights = Flight.Where(x => x.Origin == journeyDTO.Origin || x.Destination == journeyDTO.Destination).ToList();
-
                 var routeFlights = journeyService.BuscarRuta(Flight, journeyDTO.Origin, journeyDTO.Destination);
 
-                Journey journey = new Journey();
-                journey.Origin = journeyDTO.Origin;
-                journey.Destination = journeyDTO.Destination;
-                journey.Price = routeFlights.Sum(x => x.Price);
-                journey.Flights = routeFlights;
-                return journey;
+                return journeyService.GetResponse(journeyDTO, routeFlights);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("GetCurrency")]
+        public Currency GetCurrency(string currency)
+        {
+            try
+            {
+                return journeyService.GetCurrency(currency);
             }
             catch (Exception)
             {

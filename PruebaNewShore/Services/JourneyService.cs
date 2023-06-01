@@ -31,10 +31,16 @@ namespace PruebaNewShore.Services
             List<Flight> route = new List<Flight>();
             HashSet<string> visited = new HashSet<string>();
 
-            DFS(flights, origin, destination, visited, route);
+            var flightsList = FilterRoute(flights, origin, destination);
+            DFS(flightsList, origin, destination, visited, route);
 
             return route;
 
+        }
+
+        private List<Flight> FilterRoute(List<Flight> flights, string origin, string destination)
+        {
+            return flights.Where(x => x.Origin == origin || x.Destination == destination).ToList();
         }
 
         private bool DFS(List<Flight> flights, string origin, string destination, HashSet<string> visited, List<Flight> route)
@@ -56,6 +62,35 @@ namespace PruebaNewShore.Services
             }
 
             return false;
+        }
+
+        public Journey GetResponse(JourneyDTO journeyDTO, List<Flight> journeys)
+        {
+            Journey journey = new Journey();
+            journey.Origin = journeyDTO.Origin;
+            journey.Destination = journeyDTO.Destination;
+            journey.Price = journeys.Sum(x => x.Price);
+            journey.Flights = journeys;
+
+            return journey;
+        }
+
+        public Currency GetCurrency(string currency)
+        {
+            var currencyStr = CreateCurrency();
+            return currencyStr.Where(c => c.Name.Equals(currency)).First();
+        }
+
+
+        private List<Currency> CreateCurrency()
+        {
+            List<Currency> currencyList = new List<Currency>();
+            currencyList.Add(new Currency { Name = "EUR", Value = "1.4" });
+            currencyList.Add(new Currency { Name = "JPY", Value = "0.8" });
+            currencyList.Add(new Currency { Name = "GBP", Value = "1.8" });
+
+            return currencyList;
+
         }
 
     }
