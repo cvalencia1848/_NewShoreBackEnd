@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PruebaNewShore.DTOs;
-using PruebaNewShore.Models;
-using PruebaNewShore.Services;
+using Models_.DTOs;
+using Models_.Entitys;
+using Services.Interfaces;
 
 namespace PruebaNewShore.Controllers
 {
@@ -32,7 +32,7 @@ namespace PruebaNewShore.Controllers
         }
 
         //Problema 3
-        [HttpGet("GetRoutes")]
+        [HttpPost("GetRoutes")]
         public Journey GetRoutes([FromBody] JourneyDTO journeyDTO)
         {
             try
@@ -51,7 +51,7 @@ namespace PruebaNewShore.Controllers
         }
 
         [HttpGet("GetCurrency")]
-        public Currency GetCurrency(string currency)
+        public CurrencyDTo GetCurrency(string currency)
         {
             try
             {

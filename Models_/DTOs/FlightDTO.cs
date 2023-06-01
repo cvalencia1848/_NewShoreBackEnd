@@ -1,4 +1,4 @@
-﻿namespace PruebaNewShore.DTOs
+﻿namespace Models_.DTOs
 {
     public class FlightDTO
     {

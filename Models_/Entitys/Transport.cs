@@ -1,4 +1,4 @@
-﻿namespace PruebaNewShore.Models
+﻿namespace Models_.Entitys
 {
     public class Transport
     {

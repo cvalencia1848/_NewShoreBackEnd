@@ -1,4 +1,4 @@
-﻿namespace PruebaNewShore.Models
+﻿namespace Models_.Entitys
 {
     public class Journey
     {
@@ -6,5 +6,6 @@
         public string Origin { get; set; }
         public string Destination { get; set; }
         public double? Price { get; set; }
+
     }
 }

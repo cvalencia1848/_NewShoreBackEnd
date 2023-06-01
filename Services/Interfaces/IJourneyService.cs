@@ -1,7 +1,7 @@
-﻿using PruebaNewShore.DTOs;
-using PruebaNewShore.Models;
+﻿using Models_.DTOs;
+using Models_.Entitys;
 
-namespace PruebaNewShore.Services
+namespace Services.Interfaces
 {
     public interface IJourneyService
     {
@@ -9,6 +9,6 @@ namespace PruebaNewShore.Services
         List<Flight> MappingFlights(List<FlightDTO> flightDTOs);
         List<Flight> BuscarRuta(List<Flight> flights, string origin, string destination);
         Journey GetResponse(JourneyDTO journeyDTO, List<Flight> journeys);
-        Currency GetCurrency(string currency);
+        CurrencyDTo GetCurrency(string currency);
     }
 }

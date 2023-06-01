@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PruebaNewShore.DTOs
+namespace Models_.DTOs
 {
     public class JourneyDTO
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PruebaNewShore.DTOs;
-using PruebaNewShore.Models;
+using Models_.DTOs;
+using Models_.Entitys;
 
-namespace PruebaNewShore.Profiles
+namespace Services.Profiles
 {
     public class AutoMapperProfile : Profile
     {

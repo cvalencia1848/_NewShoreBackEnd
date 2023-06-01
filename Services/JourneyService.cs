@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using PruebaNewShore.DTOs;
-using PruebaNewShore.Models;
+using Models_.DTOs;
+using Models_.Entitys;
+using Services.Interfaces;
+using System.Net.Http.Json;
 
-namespace PruebaNewShore.Services
+namespace Services
 {
     public class JourneyService : IJourneyService
     {
@@ -75,23 +77,22 @@ namespace PruebaNewShore.Services
             return journey;
         }
 
-        public Currency GetCurrency(string currency)
+        public CurrencyDTo GetCurrency(string currency)
         {
             var currencyStr = CreateCurrency();
             return currencyStr.Where(c => c.Name.Equals(currency)).First();
         }
 
 
-        private List<Currency> CreateCurrency()
+        private List<CurrencyDTo> CreateCurrency()
         {
-            List<Currency> currencyList = new List<Currency>();
-            currencyList.Add(new Currency { Name = "EUR", Value = "1.4" });
-            currencyList.Add(new Currency { Name = "JPY", Value = "0.8" });
-            currencyList.Add(new Currency { Name = "GBP", Value = "1.8" });
+            List<CurrencyDTo> currencyList = new List<CurrencyDTo>();
+            currencyList.Add(new CurrencyDTo { Name = "EUR", Value = "1.4" });
+            currencyList.Add(new CurrencyDTo { Name = "JPY", Value = "0.8" });
+            currencyList.Add(new CurrencyDTo { Name = "GBP", Value = "1.8" });
 
             return currencyList;
 
         }
-
     }
 }
